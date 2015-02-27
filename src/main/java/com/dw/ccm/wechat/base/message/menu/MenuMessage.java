@@ -1,6 +1,7 @@
 package com.dw.ccm.wechat.base.message.menu;
 
 import com.google.gson.*;
+import com.google.gson.annotations.SerializedName;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class MenuMessage {
 	/**
 	 * 一级菜单
 	 */
+    @SerializedName("button")
 	private List<Button> buttonList;
 
     public MenuMessage() {
