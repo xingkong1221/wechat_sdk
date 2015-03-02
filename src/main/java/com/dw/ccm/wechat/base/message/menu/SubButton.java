@@ -1,82 +1,62 @@
 package com.dw.ccm.wechat.base.message.menu;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * 二级菜单
+ * Abstract - 菜单按钮
  * 
  * @author xingkong1221
  * @date 2014年9月29日
  */
-public class SubButton implements Button {
-	
-	/**
-	 * 菜单标题，不超过16个字节，子菜单不超过40个字节
-	 */
-	private String name;
-	
-	/**
-	 * 二级菜单数组，个数应为1~5个
-	 */
-	@SerializedName("sub_button")
-	private List<Button> subButton;
-
-    public SubButton() {
-        subButton = new ArrayList<Button>(5);
-    }
+public abstract class SubButton {
 
     /**
-     * 添加子菜单
-     * @param button 子菜单
-     * @return 二级菜单集合
+     * 菜单按钮的名称
      */
-    public SubButton add(Button button) {
-        subButton.add(button);
-        return this;
-    }
+    private String name;
 
     /**
-     * 实例化一个二级菜单数组
+     * 菜单按钮的类型
+     */
+    public ButtonType type;
+
+    /**
+     * 设置菜单按钮的类型
+     */
+    public abstract void setButtonType();
+
+    /**
+     * 获取菜单按钮的名称
      *
-     * @param name 二级菜单名称
+     * @return 菜单按钮的名称
      */
-    public SubButton(String name) {
-        this.name = name;
-        subButton = new ArrayList<Button>(5);
+    public String getName() {
+        return name;
     }
 
     /**
-	 * 获取二级菜单名称
-	 * @return 二级菜单名称
-	 */
-	public String getName() {
-		return name;
-	}
+     * 设置菜单按钮的名称<br/>
+     * 注：一级菜单最多4个汉字，二级菜单最多7个汉字，多出来的部分将会以“...”代替
+     *
+     * @param name 菜单按钮的名称
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * 设置二级菜单名称
-	 * @param name 二级菜单名称
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	/**
-	 * 获取二级菜单按钮
-	 * @return 二级菜单按钮
-	 */
-	public List<Button> getSubButton() {
-		return subButton;
-	}
+    /**
+     * 获取菜单按钮的类型
+     *
+     * @return 菜单按钮的类型
+     */
+    public ButtonType getType() {
+        return type;
+    }
 
-	/**
-	 * 设置二级菜单按钮
-	 * @param subButton 二级菜单按钮
-	 */
-	public void setSubButton(List<Button> subButton) {
-		this.subButton = subButton;
-	}
+    /**
+     * 设置菜单按钮的类型
+     *
+     * @param type 菜单按钮的类型
+     */
+    public void setType(ButtonType type) {
+        this.type = type;
+    }
 }
