@@ -6,58 +6,77 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 菜单组（一级菜单）
+ * 一级菜单
  * 
  * @author xingkong1221
  * @date 2014年9月29日
  */
-public class ButtonGroup extends Button {
-	
+public class ButtonGroup implements Button {
+
+    /**
+     * 菜单按钮的名称
+     */
+    private String name;
+
 	/**
-	 * 二级菜单数组，个数应为1~5个
+	 * 菜单按钮集合，个数应为1~5个
 	 */
 	@SerializedName("sub_button")
-	private List<Button> subButtonList;
-
-    public ButtonGroup() {
-        subButton = new ArrayList<Button>(5);
-    }
+	private List<SubButton> subButtonList;
 
     /**
-     * 添加子菜单
-     * @param button 子菜单
-     * @return 二级菜单集合
+     * 实例化一个一级菜单
      */
-    public ButtonGroup add(Button button) {
-        subButton.add(button);
-        return this;
+    public ButtonGroup() {
+        subButtonList = new ArrayList<SubButton>(5);
     }
 
     /**
-     * 实例化一个二级菜单数组
+     * 实例化一个一级菜单
      *
-     * @param name 二级菜单名称
+     * @param name 一级菜单名称
      */
     public ButtonGroup(String name) {
         setName(name);
-        subButton = new ArrayList<Button>(5);
+        subButtonList = new ArrayList<SubButton>(5);
     }
 
+    /**
+     * 向一级菜单中添加二级菜单（菜单按钮）
+     *
+     * @param button 二级菜单（菜单按钮）
+     * @return 二级菜单集合
+     */
+    public ButtonGroup addButton(SubButton button) {
+        subButtonList.add(button);
+        return this;
+    }
 
-	
 	/**
-	 * 获取二级菜单按钮
-	 * @return 二级菜单按钮
+	 * 获取一级菜单按钮集合
+     *
+	 * @return 一级菜单按钮集合
 	 */
-	public List<Button> getSubButton() {
-		return subButton;
+	public List<SubButton> getSubButton() {
+		return subButtonList;
 	}
 
-	/**
-	 * 设置二级菜单按钮
-	 * @param subButton 二级菜单按钮
-	 */
-	public void setSubButton(List<Button> subButton) {
-		this.subButton = subButton;
-	}
+    /**
+     * 获取菜单按钮的名称
+     *
+     * @return 菜单按钮的名称
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * 设置菜单按钮的名称<br/>
+     * 注：一级菜单最多4个汉字，二级菜单最多7个汉字，多出来的部分将会以“...”代替
+     *
+     * @param name 菜单按钮的名称
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 }

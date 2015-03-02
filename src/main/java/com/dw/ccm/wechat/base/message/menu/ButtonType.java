@@ -27,7 +27,7 @@ public enum ButtonType {
     PIC_PHOTO_OR_ALBUM("pic_photo_or_album"),
 
     /** 弹出微信相册发图器 */
-    PC_WEIXIN("pic_weixin"),
+    PIC_WEIXIN("pic_weixin"),
 
     /** 弹出地理位置选择器 */
     LOCATION_SELECT("location_select");

@@ -6,7 +6,7 @@ package com.dw.ccm.wechat.base.message.menu;
  * @author xingkong1221
  * @date 2014年9月29日
  */
-public abstract class SubButton {
+public abstract class SubButton implements Button {
 
     /**
      * 菜单按钮的名称
@@ -29,6 +29,7 @@ public abstract class SubButton {
      * @return 菜单按钮的名称
      */
     public String getName() {
+        setButtonType();
         return name;
     }
 
@@ -39,6 +40,7 @@ public abstract class SubButton {
      * @param name 菜单按钮的名称
      */
     public void setName(String name) {
+        setButtonType();
         this.name = name;
     }
 

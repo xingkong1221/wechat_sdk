@@ -1,6 +1,6 @@
 package com.dw.ccm.wechat.base;
 
-import com.dw.ccm.wechat.base.message.menu.Button;
+import com.dw.ccm.wechat.base.message.menu.SubButton;
 import com.dw.ccm.wechat.base.message.menu.MenuMessage;
 import com.dw.ccm.wechat.base.message.menu.ViewButton;
 import com.dw.ccm.wechat.base.message.qy.TextCorpMessage;
@@ -173,7 +173,7 @@ public class WeChatCorpTest {
 	@Test
 	public void testCreateMenu() {
 		MenuMessage message = new MenuMessage();
-		List<Button> buttons = new ArrayList<Button>();
+		List<SubButton> buttons = new ArrayList<SubButton>();
 		ViewButton view1 = new ViewButton("淘宝", "http://www.taobao.com");
 		ViewButton view2 = new ViewButton("百度", "http://www.baidu.com");
 		ViewButton view3 = new ViewButton("谷歌", "http://www.google.com.hk");

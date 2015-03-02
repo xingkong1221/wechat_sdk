@@ -28,7 +28,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.dw.ccm.wechat.base.exception.WechatException;
+import com.dw.ccm.wechat.base.exception.WeChatException;
 import com.dw.ccm.wechat.base.message.response.smartbind.CallbackUrlResponse;
 import com.dw.ccm.wechat.base.message.response.smartbind.LoginResponse;
 import com.dw.ccm.wechat.base.message.response.smartbind.StartDevModeResponse;
@@ -149,9 +149,9 @@ public class WechatSmartBinder {
 	
 	/**
 	 * 登录到微信服务器
-	 * @throws WechatException 
+	 * @throws com.dw.ccm.wechat.base.exception.WeChatException
 	 */
-	protected void login() throws WechatException {
+	protected void login() throws WeChatException {
 		logger.info("微信公众平台登录中...");
 		
 		// 设置登录参数
@@ -170,7 +170,7 @@ public class WechatSmartBinder {
 		LoginResponse response = execute(post, LoginResponse.class);
 		if (response.getBaseResp().getRet() != 0) {
 			logger.info("登录微信公众平台失败!");
-			throw new WechatException("智能绑定失败，登录微信公众平台失败，失败原因：" + 
+			throw new WeChatException("智能绑定失败，登录微信公众平台失败，失败原因：" +
 					response.getBaseResp().getErrMsg());
 		}
 		tokenParam = Integer.parseInt(response.getRedirectUrl().split("=")[3]);
@@ -181,9 +181,9 @@ public class WechatSmartBinder {
 	/**
 	 * 抓取微信公众号的基本信息
 	 * @return 返回 {@code WechatAccount} 对象
-	 * @throws WechatException 抓取时发生异常
+	 * @throws com.dw.ccm.wechat.base.exception.WeChatException 抓取时发生异常
 	 */
-	public WechatAccount crawlAccount() throws WechatException {
+	public WechatAccount crawlAccount() throws WeChatException {
 		logger.info("进入微信公众账号基本信息页面抓取基本信息...");
 		
 		WechatAccount account = new WechatAccount();
@@ -252,9 +252,9 @@ public class WechatSmartBinder {
 	
 	/**
 	 * 设置接受微信消息推送的URL
-	 * @throws WechatException 设置失败，抛出 {@code WechatException} 异常
+	 * @throws com.dw.ccm.wechat.base.exception.WeChatException 设置失败，抛出 {@code WechatException} 异常
 	 */
-	public void setCallbackUrl() throws WechatException {
+	public void setCallbackUrl() throws WeChatException {
 		logger.info("设置接受微信消息推送的URL中...");
 		
 		Asserts.notNull(url, "接受微信消息推送的URL不能为空");
@@ -271,13 +271,13 @@ public class WechatSmartBinder {
 		
 		CallbackUrlResponse response = execute(post, CallbackUrlResponse.class);
 		if (response.getRet() != 0) {
-			throw new WechatException("设置接受微信消息推送的URL失败，失败原因： code = " + 
+			throw new WeChatException("设置接受微信消息推送的URL失败，失败原因： code = " +
 						response.getRet() + "   msg = " + response.getMsg());
 		}
 		logger.info("设置接受微信消息推送的URL成功！");
 	}
 	
-	public void startDeveloperMode() throws WechatException {
+	public void startDeveloperMode() throws WeChatException {
 		logger.info("开启微信公众号的开发者模式中...");
 		
 		// 设置POST参数
@@ -296,7 +296,7 @@ public class WechatSmartBinder {
 		
 		StartDevModeResponse response = execute(post, StartDevModeResponse.class);
 		if (response.getBaseResp().getRet() != 0) {
-			throw new WechatException("开启开发者模式失败，错误码： " + response.getBaseResp().getRet() +
+			throw new WeChatException("开启开发者模式失败，错误码： " + response.getBaseResp().getRet() +
 					"  ,错误消息： " + response.getBaseResp().getErrMsg());
 		}
 		logger.info("开启开发者模式成功！");
@@ -328,9 +328,9 @@ public class WechatSmartBinder {
 	 * 发送 {@code HTTP} 请求，并返回结果
 	 * @param request 请求方法
 	 * @return 成功返回 {@code HTTP} 响应的内容，失败返回 {@code null}
-	 * @throws WechatException 请求失败，抛出微信异常
+	 * @throws com.dw.ccm.wechat.base.exception.WeChatException 请求失败，抛出微信异常
 	 */
-	protected String execute(HttpRequestBase request) throws WechatException {
+	protected String execute(HttpRequestBase request) throws WeChatException {
 		// 设置请求配置参数
 		RequestConfig requestConfig = RequestConfig.custom()
 				.setSocketTimeout(DEFAULT_SOCKET_TIMEOUT)
@@ -366,7 +366,7 @@ public class WechatSmartBinder {
 			throw new RuntimeException(error.toString(), e);
 		} catch (Exception e) {
 			error.append(e.getMessage());
-			throw new WechatException(error.toString(), e);
+			throw new WeChatException(error.toString(), e);
 		}
 		error.append("无响应内容");
 		throw new RuntimeException(error.toString());
@@ -377,9 +377,9 @@ public class WechatSmartBinder {
 	 * @param request 请求方法
 	 * @param clazz 反序列化对象的 {@code Class}
 	 * @return 返回反序列化后的对象
-	 * @throws WechatException 请求失败，抛出微信异常
+	 * @throws com.dw.ccm.wechat.base.exception.WeChatException 请求失败，抛出微信异常
 	 */
-	protected <T> T execute(HttpRequestBase request, Class<T> clazz) throws WechatException {
+	protected <T> T execute(HttpRequestBase request, Class<T> clazz) throws WeChatException {
 		String ret = execute(request);
 		return JsonUtils.fromJson(ret, clazz);
 	}

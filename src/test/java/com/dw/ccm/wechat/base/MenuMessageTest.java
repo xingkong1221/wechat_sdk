@@ -1,9 +1,8 @@
 package com.dw.ccm.wechat.base;
 
-import com.dw.ccm.wechat.base.message.menu.ActionButton;
-import com.dw.ccm.wechat.base.message.menu.MenuMessage;
-import com.dw.ccm.wechat.base.message.menu.SubButton;
-import com.dw.ccm.wechat.base.message.menu.ViewButton;
+import com.dw.ccm.wechat.base.message.menu.*;
+import com.dw.ccm.wechat.base.message.response.MenuResponse;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -13,25 +12,31 @@ import org.junit.Test;
 public class MenuMessageTest {
 
     @Test
-    public void main() {
+    public void test() {
+
+        WeChat weChat = WeChatHelper.getWeChat(WeChatHelper.getAccessToken("wxd2bff322d0c25d5f", "5383aade955f01939562613bef7a2c44").getAccessToken());
+
+
         MenuMessage menuMessage = new MenuMessage();
 
-        ActionButton clickButton = new ActionButton(ActionButton.ButtonType.CLICK, "歌曲", "Today_Music");
+        ButtonGroup firstGroup = new ButtonGroup("集合1");
+        firstGroup.addButton(new ClickButton("今日歌曲", "TODAY_MUSIC"));
+        firstGroup.addButton(new ViewButton("百度一下", "http://www.baidu.com"));
+        firstGroup.addButton(new ScanCodeWaitMsgButton("扫码推消息", "SCAN_CODE_MSG_0001"));
+        firstGroup.addButton(new PicSysPhotoButton("我要拍照片", "PIC_SYS_PHOTO_0001"));
 
-        ViewButton viewButton = new ViewButton("搜索", "http://www.baidu.com");
+        ScanCodePushButton secondButton = new ScanCodePushButton("我要扫码", "SCAN_CODE_00001");
 
-        SubButton subButton = new SubButton();
+        ButtonGroup thirdGroup = new ButtonGroup("集合2");
+        thirdGroup.addButton(new PicPhotoOrAlbumButton("从相册中选", "PIC_ALBUM_0001"));
+        thirdGroup.addButton(new PicWeiXinButton("微信相册", "PIC_WEIXIN_0001"));
+        thirdGroup.addButton(new LocationSelectButton("上报地理位置","LOCATION_SELECT_00001"));
 
-        ActionButton waitingButton = new ActionButton(ActionButton.ButtonType.SCAN_CODE_WAIT_MSG, "扫码带提示", "selfmenu_0_0");
-        ActionButton photoButton = new ActionButton(ActionButton.ButtonType.PIC_SYS_PHOTO, "系统拍照发图", "rselfmenu_1_0");
-
-        subButton.getSubButton().add(waitingButton);
-        subButton.getSubButton().add(photoButton);
-
-        menuMessage.getButtonList().add(clickButton);
-        menuMessage.getButtonList().add(viewButton);
-        menuMessage.getButtonList().add(subButton);
+        menuMessage.addButton(firstGroup).addButton(secondButton).addButton(thirdGroup);
 
         System.out.println(menuMessage.toJson());
+
+        MenuResponse response = weChat.createMenu(menuMessage.toJson());
+        Assert.assertTrue(response.getErrCode() == 0);
     }
 }

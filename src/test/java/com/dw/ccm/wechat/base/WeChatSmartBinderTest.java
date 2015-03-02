@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.dw.ccm.wechat.base.exception.WechatException;
+import com.dw.ccm.wechat.base.exception.WeChatException;
 import com.dw.ccm.wechat.base.message.response.smartbind.WechatAccount;
 
 /**
@@ -52,10 +52,10 @@ public class WeChatSmartBinderTest {
 
 	/**
 	 * 测试开启开发者模式
-	 * @throws WechatException 
+	 * @throws com.dw.ccm.wechat.base.exception.WeChatException
 	 */
 	@Test
-	public void testStartDevMode() throws WechatException {
+	public void testStartDevMode() throws WeChatException {
 		binder.startDeveloperMode();
 	}
 	
@@ -63,17 +63,17 @@ public class WeChatSmartBinderTest {
 	 * 测试微信公众号基本信息抓取t
 	 */
 	@Test
-	public void testCrawlAccount() throws WechatException{
+	public void testCrawlAccount() throws WeChatException {
 		WechatAccount account = binder.crawlAccount();
 		Assert.assertNotNull(account.getAddress());
 	}
 	
 	/**
 	 * 测试设置接收微信推送消息的URL
-	 * @throws WechatException
+	 * @throws com.dw.ccm.wechat.base.exception.WeChatException
 	 */
 	@Test
-	public void testSetCallbackUrl() throws WechatException {
+	public void testSetCallbackUrl() throws WeChatException {
 		binder.setCallbackUrl();
 	}
 }
