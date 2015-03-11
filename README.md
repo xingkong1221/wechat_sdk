@@ -1,2 +1,2 @@
 # wechat_sdk
-微信公共号开发的sdk
+微信公众号开发sdk
